@@ -1,0 +1,85 @@
+/* 
+ * Aspirasi-Kita - Portal Pengaduan Sosial & Fasilitas Publik
+ * Custom CSS for Accessibility and Styling Overrides
+ * Phase 1: Foundations
+ */
+
+/* Custom Font Family Settings if needed */
+:root {
+    --font-primary: 'Plus Jakarta Sans', sans-serif;
+    --transition-speed: 0.2s;
+}
+
+body {
+    font-family: var(--font-primary);
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+/* ==========================================================================
+   Accessibility CSS Hooks
+   ========================================================================== */
+
+/* Monochrome Mode (Hitam Putih) */
+body.accessibility-monochrome {
+    filter: grayscale(100%) !important;
+}
+
+/* High Contrast Mode (Kontras Tinggi) */
+body.accessibility-high-contrast {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+body.accessibility-high-contrast a,
+body.accessibility-high-contrast button {
+    color: #ffff00 !important;
+    border-color: #ffff00 !important;
+    background-color: #000000 !important;
+}
+
+body.accessibility-high-contrast input,
+body.accessibility-high-contrast textarea,
+body.accessibility-high-contrast select {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+/* Large Text Resizing Classes */
+.text-scale-1 { font-size: 100%; }
+.text-scale-2 { font-size: 110%; }
+.text-scale-3 { font-size: 120%; }
+.text-scale-4 { font-size: 130%; }
+.text-scale-5 { font-size: 140%; }
+
+/* Content Adjustments: Text Spacing */
+body.accessibility-spaced-text {
+    letter-spacing: 0.15em !important;
+    word-spacing: 0.3em !important;
+    line-height: 2 !important;
+}
+
+/* Content Adjustments: Highlight Links */
+body.accessibility-highlight-links a {
+    text-decoration: underline !important;
+    font-weight: bold !important;
+    outline: 2px dashed #3b82f6 !important;
+    outline-offset: 2px !important;
+}
+
+/* Visual Tool: Reading Guide (Garis Bantu Membaca) */
+.reading-guide-line {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #ef4444;
+    pointer-events: none;
+    z-index: 9999;
+    display: none;
+    transform: translateY(-50%);
+}
+
+body.accessibility-reading-guide .reading-guide-line {
+    display: block;
+}
