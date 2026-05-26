@@ -188,8 +188,13 @@ function renderFeed(data) {
                 </div>
 
                 <!-- Judul Laporan -->
-                <h3 id="title-${item.id}" class="text-lg font-bold text-slate-800 mb-3 hover:text-brand-600 transition-colors">
-                    <a href="#detail-${item.id}" class="focus:outline-none focus:underline focus:text-brand-600">${escapeHTML(item.judul)}</a>
+                <h3 id="title-${item.id}" class="text-lg font-bold text-slate-800 mb-3 hover:text-brand-600 transition-colors flex items-center justify-between">
+                    <a href="#detail-${item.id}" class="focus:outline-none focus:underline focus:text-brand-600 flex-grow">${escapeHTML(item.judul)}</a>
+                    <button class="btn-listen p-1.5 text-slate-400 hover:text-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600 rounded-lg ml-2 shrink-0" aria-label="Dengarkan laporan ini">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M12 18.75V5.25L7.5 9H4.5v6h3L12 18.75z" />
+                        </svg>
+                    </button>
                 </h3>
 
                 <!-- Deskripsi Laporan -->
