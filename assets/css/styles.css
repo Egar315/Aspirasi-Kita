@@ -1,13 +1,13 @@
 /* 
  * Aspirasi-Kita - Portal Pengaduan Sosial & Fasilitas Publik
  * Custom CSS for Accessibility and Styling Overrides
- * Phase 1: Foundations
+ * Phase 2: Styling UI & Responsive Optimization
  */
 
-/* Custom Font Family Settings if needed */
+/* Custom Font Family Settings */
 :root {
     --font-primary: 'Plus Jakarta Sans', sans-serif;
-    --transition-speed: 0.2s;
+    --transition-speed: 0.3s;
 }
 
 body {
@@ -15,8 +15,24 @@ body {
     transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
+/* Scrollbar customization for modern aesthetic */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
 /* ==========================================================================
-   Accessibility CSS Hooks
+   Accessibility CSS Hooks & Overrides
    ========================================================================== */
 
 /* Monochrome Mode (Hitam Putih) */
@@ -26,7 +42,7 @@ body.accessibility-monochrome {
 
 /* High Contrast Mode (Kontras Tinggi) */
 body.accessibility-high-contrast {
-    background-color: #000000 !important;
+    background-color: #0d0d0d !important;
     color: #ffffff !important;
 }
 
@@ -34,15 +50,35 @@ body.accessibility-high-contrast a,
 body.accessibility-high-contrast button {
     color: #ffff00 !important;
     border-color: #ffff00 !important;
-    background-color: #000000 !important;
+    background-color: #0d0d0d !important;
+    text-decoration: underline !important;
+}
+
+body.accessibility-high-contrast a:hover,
+body.accessibility-high-contrast button:hover {
+    background-color: #ffff00 !important;
+    color: #0d0d0d !important;
 }
 
 body.accessibility-high-contrast input,
 body.accessibility-high-contrast textarea,
 body.accessibility-high-contrast select {
-    background-color: #000000 !important;
+    background-color: #0d0d0d !important;
     color: #ffffff !important;
     border: 2px solid #ffffff !important;
+}
+
+body.accessibility-high-contrast .bg-white,
+body.accessibility-high-contrast .bg-gray-50,
+body.accessibility-high-contrast .bg-gray-100 {
+    background-color: #0d0d0d !important;
+    border-color: #ffffff !important;
+}
+
+body.accessibility-high-contrast .text-gray-500,
+body.accessibility-high-contrast .text-gray-600,
+body.accessibility-high-contrast .text-gray-700 {
+    color: #ffffff !important;
 }
 
 /* Large Text Resizing Classes */
@@ -67,6 +103,21 @@ body.accessibility-highlight-links a {
     outline-offset: 2px !important;
 }
 
+/* Content Adjustments: Mute Animations & Hide Non-critical Media */
+body.accessibility-mute-animations * {
+    animation: none !important;
+    transition: none !important;
+}
+
+body.accessibility-mute-animations img {
+    opacity: 0.1 !important;
+    filter: blur(8px) grayscale(100%) !important;
+}
+
+body.accessibility-mute-animations svg:not(.brand-logo):not(.panel-icon) {
+    display: none !important;
+}
+
 /* Visual Tool: Reading Guide (Garis Bantu Membaca) */
 .reading-guide-line {
     position: fixed;
@@ -78,8 +129,32 @@ body.accessibility-highlight-links a {
     z-index: 9999;
     display: none;
     transform: translateY(-50%);
+    box-shadow: 0 0 8px #ef4444;
 }
 
 body.accessibility-reading-guide .reading-guide-line {
     display: block;
+}
+
+/* Enhanced Focus Outline */
+body.accessibility-enhanced-focus *:focus {
+    outline: 4px solid #ef4444 !important;
+    outline-offset: 4px !important;
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* ==========================================================================
+   Panel Aksesibilitas Slide-over Transition CSS Linkage
+   ========================================================================== */
+#panel-aksesibilitas {
+    transition: transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1), opacity var(--transition-speed) ease;
+    transform: translateX(0);
+    opacity: 1;
+}
+
+#panel-aksesibilitas.hidden {
+    display: flex !important; /* Override Tailwind hidden to allow sliding transitions */
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
 }
