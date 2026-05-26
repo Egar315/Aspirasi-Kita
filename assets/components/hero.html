@@ -1,0 +1,98 @@
+<!-- SECTION 1: HERO BANNER (Responsive Grid & Geometric SVG Illustration) -->
+<section id="hero-banner" class="mb-14 rounded-[32px] bg-gradient-to-br from-brand-700 via-indigo-700 to-indigo-900 text-white p-8 md:p-14 relative overflow-hidden shadow-2xl shadow-indigo-100" aria-labelledby="hero-heading">
+    
+    <!-- Layout Grid: 1 Kolom di HP, 2 Kolom di Desktop (lg:) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
+        
+        <!-- Kolom Kiri: Teks & Aksi -->
+        <div class="lg:col-span-7 space-y-6 text-left">
+            <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold bg-white/10 backdrop-blur-md text-emerald-300 uppercase tracking-widest border border-white/5">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
+                Portal Inklusif Kota Kita
+            </span>
+            
+            <h1 id="hero-heading" class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.15] text-white">
+                Suarakan Aspirasimu,<br>Tingkatkan Fasilitas Kita.
+            </h1>
+            
+            <p class="text-sm sm:text-base md:text-lg text-indigo-100 leading-relaxed max-w-xl">
+                Laporkan kerusakan fasilitas publik, masalah kebersihan, atau keluhan pelayanan sosial dengan mudah. Portal ini dioptimalkan dengan aksesibilitas ramah disabilitas demi kesetaraan warga.
+            </p>
+            
+            <div class="flex flex-wrap gap-4 pt-2">
+                <a href="#feed-aspirasi" class="px-6 py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-lg shadow-emerald-900/10 hover:scale-105 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-indigo-800" aria-label="Lihat Laporan Warga Lain">
+                    Lihat Laporan Warga
+                </a>
+                <button onclick="toggleReportModal(true)" class="px-6 py-3.5 border border-white/20 bg-white/5 backdrop-blur-sm text-white font-bold rounded-xl hover:bg-white/10 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-white" aria-label="Tulis Laporan Sekarang">
+                    Laporkan Sekarang
+                </button>
+            </div>
+        </div>
+
+        <!-- Kolom Kanan: SVG Ilustrasi Geometris Abstrak Premium (Hanya muncul di lg: desktop) -->
+        <div class="hidden lg:block lg:col-span-5 relative w-full h-full min-h-[300px]">
+            <svg class="w-full h-full max-h-[350px]" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <!-- Background Glow -->
+                <circle cx="250" cy="200" r="160" fill="url(#hero-glow)" opacity="0.3"/>
+                
+                <!-- Grid Lines -->
+                <path d="M 50 100 L 450 100 M 50 200 L 450 200 M 50 300 L 450 300 M 150 50 L 150 350 M 250 50 L 250 350 M 350 50 L 350 350" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1.5" />
+                
+                <!-- Abstract Cityscape / Platforms -->
+                <rect x="120" y="240" width="70" height="120" rx="12" fill="url(#grad-blue)" opacity="0.8"/>
+                <rect x="210" y="160" width="80" height="200" rx="16" fill="url(#grad-purple)" opacity="0.9"/>
+                <rect x="310" y="210" width="70" height="150" rx="12" fill="url(#grad-teal)" opacity="0.8"/>
+                
+                <!-- Floating Glass Circles (Isometric visual representation of data) -->
+                <g filter="url(#drop-shadow-svg)">
+                    <circle cx="250" cy="120" r="35" fill="white" fill-opacity="0.1" stroke="white" stroke-opacity="0.2" stroke-width="1.5" />
+                    <!-- Megaphone/Voice Icon inside circle -->
+                    <path d="M245 113h-4a2 2 0 00-2 2v10a2 2 0 002 2h4l6 5V108l-6 5zm11 7a5 5 0 000-6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+
+                <g filter="url(#drop-shadow-svg)">
+                    <circle cx="140" cy="200" r="28" fill="white" fill-opacity="0.1" stroke="white" stroke-opacity="0.2" stroke-width="1.5" />
+                    <!-- Map Pin Icon -->
+                    <path d="M140 188c-6.6 0-12 5.4-12 12 0 8.4 12 18 12 18s12-9.6 12-18c0-6.6-5.4-12-12-12zm0 15a3 3 0 110-6 3 3 0 010 6z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+
+                <g filter="url(#drop-shadow-svg)">
+                    <circle cx="360" cy="170" r="28" fill="white" fill-opacity="0.1" stroke="white" stroke-opacity="0.2" stroke-width="1.5" />
+                    <!-- Checkmark/Thumb Icon -->
+                    <path d="M352 170l5 5 11-10" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                
+                <!-- Connecting Glowing Nodes -->
+                <line x1="250" y1="155" x2="250" y2="160" stroke="#a78bfa" stroke-width="2" stroke-dasharray="4 4" />
+                <line x1="140" y1="228" x2="140" y2="240" stroke="#818cf8" stroke-width="2" stroke-dasharray="4 4" />
+                <line x1="360" y1="198" x2="360" y2="210" stroke="#34d399" stroke-width="2" stroke-dasharray="4 4" />
+                
+                <path d="M 168 200 Q 250 170 332 170" stroke="rgba(255, 255, 255, 0.15)" stroke-width="2" fill="none" stroke-dasharray="5 5" />
+                
+                <!-- Definitions -->
+                <defs>
+                    <radialGradient id="hero-glow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#8b5cf6" />
+                        <stop offset="100%" stop-color="#4f46e5" stop-opacity="0" />
+                    </radialGradient>
+                    <linearGradient id="grad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#3b82f6" />
+                        <stop offset="100%" stop-color="#1d4ed8" />
+                    </linearGradient>
+                    <linearGradient id="grad-purple" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#8b5cf6" />
+                        <stop offset="100%" stop-color="#6d28d9" />
+                    </linearGradient>
+                    <linearGradient id="grad-teal" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#10b981" />
+                        <stop offset="100%" stop-color="#047857" />
+                    </linearGradient>
+                    <filter id="drop-shadow-svg" x="0" y="0" width="120%" height="120%">
+                        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.15"/>
+                    </filter>
+                </defs>
+            </svg>
+        </div>
+
+    </div>
+</section>

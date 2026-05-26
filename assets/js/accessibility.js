@@ -7,8 +7,9 @@
 let textToSpeechActive = false;
 let currentTextScale = 1; // Default skala teks (1-5)
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Accessibility Engine initialized.');
+// Menghubungkan fungsi inisialisasi awal ke ruang lingkup global agar dapat dipicu pasca pemuatan Fetch komponen.
+window.initAccessibilitySystem = function() {
+    console.log('Accessibility Engine initialized post-components load.');
     
     // Inisialisasi awal seluruh fitur aksesibilitas
     initAccessibilityPanel();
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Sinkronisasi status warna display aktif di awal (Default)
     updateColorDisplayButtons('reset');
-});
+};
 
 // ==========================================================================
 // 0. CONTROLLER PANEL AKSESIBILITAS

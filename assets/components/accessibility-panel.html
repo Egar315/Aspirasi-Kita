@@ -1,0 +1,159 @@
+<!-- ==========================================
+     ASIDE: Panel Aksesibilitas Cerdas (Floating Sidebar)
+     ========================================== -->
+<aside id="panel-aksesibilitas" 
+       class="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white shadow-2xl border-l border-slate-100 flex flex-col justify-between hidden transition-all duration-300"
+       role="dialog" 
+       aria-modal="true"
+       aria-labelledby="accessibility-panel-heading" 
+       aria-hidden="true">
+    
+    <!-- Header Panel Samping -->
+    <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+        <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-brand-100 flex items-center justify-center text-brand-600 font-extrabold" aria-hidden="true">
+                A
+            </div>
+            <h2 id="accessibility-panel-heading" class="text-lg font-bold text-slate-900 tracking-tight">Aksesibilitas Cerdas</h2>
+        </div>
+        <!-- Tombol Tutup Panel -->
+        <button id="btn-close-panel" 
+                class="p-1.5 rounded-xl text-slate-400 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-600 close-icon" 
+                aria-label="Tutup Panel Kontrol Aksesibilitas">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Area Kontrol Fitur Aksesibilitas -->
+    <div class="flex-grow overflow-y-auto p-6 space-y-6">
+
+        <!-- KENDALI 1: Profil Cerdas -->
+        <div class="space-y-2.5">
+            <label for="select-profil-cerdas" class="block text-sm font-extrabold text-slate-800">
+                1. Profil Aksesibilitas Cerdas
+            </label>
+            <p class="text-xs text-slate-500 leading-relaxed">Sesuaikan seluruh elemen website secara otomatis berdasarkan tipe kebutuhan khusus Anda.</p>
+            <select id="select-profil-cerdas" 
+                    class="w-full px-3 py-3 rounded-xl border border-slate-200 text-sm font-bold text-slate-700 bg-white focus:border-brand-600 focus:ring-2 focus:ring-brand-100 focus:outline-none">
+                <option value="normal">Standar (Tanpa Profil)</option>
+                <option value="adhd">Ramah ADHD (Meningkatkan Fokus)</option>
+                <option value="low-vision">Low Vision (Teks Besar & Kontras)</option>
+                <option value="cognitive">Ramah Disabilitas Kognitif (Jarak Teks)</option>
+                <option value="motor-navigation">Ramah Disabilitas Motorik (Navigasi Keyboard)</option>
+            </select>
+        </div>
+
+        <!-- KENDALI 2: Ukuran Teks (Text Resizer) -->
+        <div class="space-y-2.5">
+            <span class="block text-sm font-extrabold text-slate-800" id="text-resizer-label">
+                2. Ukuran Huruf Konten
+            </span>
+            <p class="text-xs text-slate-500 leading-relaxed">Sesuaikan ukuran font konten agar sesuai dengan kenyamanan penglihatan Anda.</p>
+            <div class="flex items-center gap-3" role="group" aria-labelledby="text-resizer-label">
+                <button id="btn-decrease-text" 
+                        class="flex-1 py-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-600"
+                        aria-label="Perkecil Ukuran Huruf">
+                    A- (Perkecil)
+                </button>
+                <button id="btn-increase-text" 
+                        class="flex-1 py-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-600"
+                        aria-label="Perbesar Ukuran Huruf">
+                    A+ (Perbesar)
+                </button>
+            </div>
+        </div>
+
+        <!-- KENDALI 3: Penyesuaian Konten -->
+        <div class="space-y-2.5">
+            <span class="block text-sm font-extrabold text-slate-800" id="content-adjustment-label">
+                3. Penyesuaian Konten Visual
+            </span>
+            <p class="text-xs text-slate-500 leading-relaxed">Berikan aksen visual ekstra untuk menavigasi bagian penting di halaman.</p>
+            <div class="space-y-3.5" role="group" aria-labelledby="content-adjustment-label">
+                <!-- Highlight Links -->
+                <label class="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" id="chk-highlight-links" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
+                    <span class="text-sm font-bold text-slate-600">Sorot Semua Tautan (Link)</span>
+                </label>
+                <!-- Spaced Text -->
+                <label class="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" id="chk-spaced-text" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
+                    <span class="text-sm font-bold text-slate-600">Perlebar Jarak Teks & Baris</span>
+                </label>
+                <!-- Mute Animations -->
+                <label class="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" id="chk-mute-animations" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
+                    <span class="text-sm font-bold text-slate-600">Redam Animasi / Sembunyikan Ilustrasi</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- KENDALI 4: Warna Tampilan (Display Color Mode) -->
+        <div class="space-y-2.5">
+            <span class="block text-sm font-extrabold text-slate-800" id="color-adjustment-label">
+                4. Warna Tampilan (Aksesibilitas Penglihatan)
+            </span>
+            <p class="text-xs text-slate-500 leading-relaxed">Atur kontras warna utama untuk mempermudah keterbacaan (tanpa mode gelap).</p>
+            <div class="grid grid-cols-3 gap-2" role="group" aria-labelledby="color-adjustment-label">
+                <button id="btn-color-monochrome" 
+                        class="px-2 py-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600"
+                        aria-label="Ubah warna halaman menjadi Hitam Putih (Monokrom)">
+                    Hitam Putih
+                </button>
+                <button id="btn-color-highcontrast" 
+                        class="px-2 py-3 bg-black text-yellow-300 border border-yellow-400 rounded-xl text-xs font-bold active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                        aria-label="Ubah warna halaman menjadi Kontras Tinggi">
+                    Kontras Tinggi
+                </button>
+                <button id="btn-color-reset" 
+                        class="px-2 py-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600"
+                        aria-label="Reset skema warna tampilan ke bawaan">
+                    Bawaan
+                </button>
+            </div>
+        </div>
+
+        <!-- KENDALI 5: Alat Bantu Cerdas -->
+        <div class="space-y-2.5">
+            <span class="block text-sm font-extrabold text-slate-800" id="assistive-tools-label">
+                5. Alat Bantu Navigasi & Membaca
+            </span>
+            <p class="text-xs text-slate-500 leading-relaxed">Aktifkan alat bantu visual pendukung di layar Anda.</p>
+            <div class="space-y-3.5" role="group" aria-labelledby="assistive-tools-label">
+                <!-- Reading Guide Line -->
+                <label class="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" id="chk-reading-guide" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
+                    <span class="text-sm font-bold text-slate-600">Garis Bantu Membaca (Kursor)</span>
+                </label>
+                <!-- Simple Screen Reader -->
+                <label class="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" id="chk-text-to-speech" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
+                    <span class="text-sm font-bold text-slate-600">Suarakan Teks Saat Disorot (TTS)</span>
+                </label>
+                <!-- Enhanced Keyboard Focus Outline -->
+                <label class="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" id="chk-enhanced-focus" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
+                    <span class="text-sm font-bold text-slate-600">Pertebal Penunjuk Fokus Keyboard</span>
+                </label>
+                <!-- Big Cursor -->
+                <label class="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" id="chk-big-cursor" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
+                    <span class="text-sm font-bold text-slate-600">Kursor Ukuran Besar</span>
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer Panel Samping (Reset All Settings) -->
+    <div class="p-6 border-t border-slate-100 bg-slate-50">
+        <button onclick="resetAllAccessibilitySettings()" 
+                class="w-full py-3.5 bg-red-50 hover:bg-red-100 border border-red-100 text-red-700 font-bold rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+                aria-label="Kembalikan semua setelan website ke kondisi bawaan">
+            Mereset Semua Setelan
+        </button>
+    </div>
+
+</aside>

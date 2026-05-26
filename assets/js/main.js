@@ -1,7 +1,7 @@
 /**
  * Aspirasi-Kita - Portal Pengaduan Sosial & Fasilitas Publik
  * Main Application Logic (Core System)
- * Phase 3: JavaScript Core System
+ * Phase 4: Javascript Accessibility & Modular Refactoring
  */
 
 // 1. DATA SIMULASI UTAMA (MOCK DATA GLOBAL)
@@ -59,17 +59,58 @@ const aspirasiData = [
 ];
 
 // Inisialisasi awal saat dokumen siap
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Aspirasi-Kita Core System initialized.');
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log('Aspirasi-Kita Core System - Loading components...');
+    
+    // Muat seluruh komponen HTML eksternal secara paralel
+    await Promise.all([
+        loadComponent('header-component', 'assets/components/header.html'),
+        loadComponent('hero-component', 'assets/components/hero.html'),
+        loadComponent('filter-component', 'assets/components/filter.html'),
+        loadComponent('accessibility-panel-component', 'assets/components/accessibility-panel.html'),
+        loadComponent('footer-component', 'assets/components/footer.html')
+    ]);
+    
+    console.log('All components loaded successfully.');
     
     // Render feed awal
     renderFeed(aspirasiData);
     
-    // Hubungkan fungsi pendukung
+    // Hubungkan fungsi pendukung utama
     initReportForm();
     initCategoryFilters();
     initUpvoteSystem();
+    
+    // Pemicu inisialisasi mesin aksesibilitas setelah elemen-elemen siap di DOM
+    if (typeof window.initAccessibilitySystem === 'function') {
+        window.initAccessibilitySystem();
+    }
 });
+
+/**
+ * Fungsi Asinkronus untuk Mengambil (Fetch) berkas HTML eksternal 
+ * dan memasukkannya ke dalam container jangkar.
+ */
+async function loadComponent(elementId, filepath) {
+    const container = document.getElementById(elementId);
+    if (!container) return;
+    
+    try {
+        const response = await fetch(filepath);
+        if (!response.ok) {
+            throw new Error(`Gagal mengambil komponen: ${filepath} (${response.status})`);
+        }
+        const htmlContent = await response.text();
+        container.innerHTML = htmlContent;
+    } catch (err) {
+        console.error(`Eror Modularisasi:`, err);
+        container.innerHTML = `
+            <div class="p-5 bg-red-50 text-red-700 rounded-2xl border border-red-100 text-sm font-bold">
+                Gagal memuat komponen visual '${elementId}'. Hubungi administrator.
+            </div>
+        `;
+    }
+}
 
 // Helper: Memformat tanggal hari ini ke format Bahasa Indonesia (misal: 26 Mei 2026)
 function getTodayFormattedDate() {
@@ -186,7 +227,7 @@ function renderFeed(data) {
                         ${statusLabel}
                     </span>
                 </div>
-
+ 
                 <!-- Judul Laporan -->
                 <h3 id="title-${item.id}" class="text-lg font-bold text-slate-800 mb-3 hover:text-brand-600 transition-colors flex items-center justify-between">
                     <a href="#detail-${item.id}" class="focus:outline-none focus:underline focus:text-brand-600 flex-grow">${escapeHTML(item.judul)}</a>
@@ -196,13 +237,13 @@ function renderFeed(data) {
                         </svg>
                     </button>
                 </h3>
-
+ 
                 <!-- Deskripsi Laporan -->
                 <p class="text-sm text-slate-500 leading-relaxed mb-6 line-clamp-3">
                     ${escapeHTML(item.deskripsi)}
                 </p>
             </div>
-
+ 
             <!-- Footer Kartu: Informasi Lokasi & Tombol Dukungan -->
             <div class="pt-5 border-t border-slate-100 flex items-center justify-between mt-auto">
                 <!-- Lokasi Laporan -->
@@ -213,7 +254,7 @@ function renderFeed(data) {
                     </svg>
                     ${escapeHTML(item.lokasi)}
                 </span>
-
+ 
                 <!-- Tombol Upvote -->
                 <div class="flex items-center">
                     <button class="btn-upvote inline-flex items-center gap-2 px-4 py-2.5 sm:px-3.5 sm:py-2 ${upvoteBtnClass} border hover:bg-brand-50 hover:text-brand-600 font-bold text-xs rounded-xl active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600"
@@ -258,11 +299,11 @@ function initCategoryFilters() {
             
             // Perbarui visualisasi tombol aktif
             filterButtons.forEach(btn => {
-                btn.className = "btn-filter shrink-0 px-4.5 py-2.5 rounded-xl text-sm font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600";
+                btn.className = "btn-filter px-4.5 py-3 rounded-xl text-sm md:text-base font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600";
                 btn.setAttribute('aria-pressed', 'false');
             });
             
-            button.className = "btn-filter shrink-0 px-4.5 py-2.5 rounded-xl text-sm font-bold bg-brand-600 text-white shadow-md shadow-brand-100 hover:shadow active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600";
+            button.className = "btn-filter px-4.5 py-3 rounded-xl text-sm md:text-base font-bold bg-brand-600 text-white shadow-md shadow-brand-100 hover:shadow active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600";
             button.setAttribute('aria-pressed', 'true');
             
             // Terapkan filter array dan render
@@ -296,11 +337,11 @@ function hasUpvotedReport(id) {
     return getUpvotedReports().includes(id);
 }
 
+// Inisialisasi Event Delegation untuk Tombol Dukungan (Upvote)
 function initUpvoteSystem() {
     const feedContainer = document.getElementById('feed-aspirasi');
     if (!feedContainer) return;
     
-    // Menggunakan event delegation di container feed utama
     feedContainer.addEventListener('click', (e) => {
         const upvoteBtn = e.target.closest('.btn-upvote');
         if (!upvoteBtn) return;
@@ -437,7 +478,6 @@ function showError(elementId, message) {
     const inputElement = document.getElementById(elementId);
     if (!inputElement) return;
     
-    // Cari apakah sudah ada pesan error sebelumnya
     let errorParagraph = inputElement.parentNode.querySelector('.error-message');
     if (!errorParagraph) {
         errorParagraph = document.createElement('p');
@@ -445,7 +485,6 @@ function showError(elementId, message) {
         inputElement.parentNode.appendChild(errorParagraph);
     }
     
-    // Set teks pesan eror dan beri aksen merah pada border input
     errorParagraph.textContent = message;
     inputElement.classList.add('border-red-400', 'focus:ring-red-100');
     inputElement.classList.remove('border-slate-200', 'focus:border-brand-500', 'focus:ring-brand-100');
@@ -461,15 +500,11 @@ function clearError(elementId) {
         errorParagraph.remove();
     }
     
-    // Kembalikan border input ke visual bawaan
     inputElement.classList.remove('border-red-400', 'focus:ring-red-100');
     inputElement.classList.add('border-slate-200', 'focus:border-brand-500', 'focus:ring-brand-100');
 }
 
-/**
- * Toggles the submission modal visibility
- * Note: Shared with global click handlers
- */
+// Toggle Submission Modal Visibility
 function toggleReportModal(show) {
     const modal = document.getElementById('modal-pelaporan');
     if (!modal) return;
@@ -481,7 +516,6 @@ function toggleReportModal(show) {
     } else {
         modal.classList.add('hidden');
         modal.setAttribute('aria-hidden', 'true');
-        // Bersihkan seluruh pesan error sisa jika ditutup paksa
         const fields = ['input-judul', 'input-kategori', 'input-lokasi', 'input-deskripsi'];
         fields.forEach(id => clearError(id));
     }

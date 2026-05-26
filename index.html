@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aspirasi-Kita - Portal Pengaduan & Fasilitas Publik Cerdas</title>
-    
-    <!-- Meta SEO -->
-    <meta name="description" content="Portal Pengaduan Sosial dan Layanan Fasilitas Publik Terintegrasi dengan Fitur Aksesibilitas Cerdas untuk Seluruh Warga.">
-    <meta name="keywords" content="pengaduan masyarakat, fasilitas publik, layanan sosial, aspirasi warga, aksesibilitas wcag">
-    
+    <title>Aspirasi-Kita - Portal Pengaduan Sosial & Fasilitas Publik</title>
+
+    <!-- SEO Optimization -->
+    <meta name="description"
+        content="Portal pengaduan warga kota untuk melaporkan infrastruktur jalan rusak, pelayanan sosial, dan fasilitas publik secara terintegrasi dan inklusif.">
+    <meta name="keywords"
+        content="pengaduan masyarakat, fasilitas publik, layanan sosial, kebersihan lingkungan, ramah disabilitas">
+    <meta name="author" content="Tim Developer Aspirasi-Kita">
+
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS Play CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
                     },
                     colors: {
                         brand: {
                             50: '#f5f3ff',
                             100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
                             500: '#8b5cf6',
                             600: '#7c3aed',
                             700: '#6d28d9',
                             800: '#5b21b6',
+                            900: '#4c1d95',
                         }
                     },
                     boxShadow: {
@@ -41,185 +50,48 @@
             }
         }
     </script>
-    
+
     <!-- Custom CSS Stylesheet for Accessibility Engine -->
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body class="bg-[#fafaff] text-slate-800 min-h-screen flex flex-col font-sans transition-colors duration-300">
 
-    <!-- ==========================================
-         HEADER & NAV: Navigasi Utama Aplikasi
-         ========================================== -->
-    <header class="sticky top-0 z-40 w-full bg-white/70 backdrop-blur-xl border-b border-slate-100 transition-all duration-300">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between" aria-label="Navigasi Utama">
-            
-            <!-- Logo Brand -->
-            <div class="flex items-center gap-2">
-                <a href="#hero-banner" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2 rounded-xl p-1.5" aria-label="Aspirasi Kita Beranda">
-                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white font-extrabold text-2xl shadow-lg shadow-brand-100 group-hover:scale-105 group-hover:rotate-3 transition-all duration-300" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 brand-logo" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                        </svg>
-                    </div>
-                    <span class="text-2xl font-extrabold tracking-tight text-slate-800">Aspirasi<span class="text-brand-600">.Kita</span></span>
-                </a>
-            </div>
-
-            <!-- Menu Tautan Utama (Hanya Desktop) -->
-            <div class="hidden md:flex items-center gap-10">
-                <a href="#hero-banner" class="text-sm font-bold text-slate-500 hover:text-brand-600 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-600 rounded-md px-2.5 py-1">Beranda</a>
-                <a href="#feed-aspirasi" class="text-sm font-bold text-slate-500 hover:text-brand-600 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-600 rounded-md px-2.5 py-1">Feed Laporan</a>
-                <a href="#filter-kategori" class="text-sm font-bold text-slate-500 hover:text-brand-600 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-600 rounded-md px-2.5 py-1 font-semibold">Kategori</a>
-            </div>
-
-            <!-- Tombol Aksi Kanan (Aksesibilitas & Buat Laporan) -->
-            <div class="flex items-center gap-3.5">
-                <!-- Tombol Pemicu Panel Aksesibilitas Cerdas -->
-                <button id="btn-panel-aksesibilitas" 
-                        class="flex items-center gap-2.5 px-4 py-2.5 border border-slate-200 text-slate-700 font-bold text-sm rounded-xl hover:bg-slate-50 hover:border-brand-500 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2"
-                        aria-haspopup="dialog"
-                        aria-expanded="false"
-                        aria-controls="panel-aksesibilitas"
-                        aria-label="Buka Panel Aksesibilitas Cerdas">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-600 panel-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <span class="hidden sm:inline">Aksesibilitas</span>
-                </button>
-
-                <!-- Tombol Shortcut Tulis Aspirasi -->
-                <button onclick="toggleReportModal(true)"
-                        class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm rounded-xl shadow-lg shadow-brand-100 hover:shadow-brand-200 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2"
-                        aria-label="Tulis Laporan Aspirasi Baru">
-                    Tulis Laporan
-                </button>
-            </div>
-
-        </nav>
-    </header>
+    <!-- Sub-Komponen Header (Pemuatan via JS) -->
+    <div id="header-component"></div>
 
     <!-- ==========================================
          MAIN: Container Konten Dinamis Platform
          ========================================== -->
     <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10" role="main">
 
-        <!-- SECTION 1: HERO BANNER (Responsive Grid & Geometric SVG Illustration) -->
-        <section id="hero-banner" class="mb-14 rounded-[32px] bg-gradient-to-br from-brand-700 via-indigo-700 to-indigo-900 text-white p-8 md:p-14 relative overflow-hidden shadow-2xl shadow-indigo-100" aria-labelledby="hero-heading">
-            
-            <!-- Layout Grid: 1 Kolom di HP, 2 Kolom di Desktop (lg:) -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
-                
-                <!-- Kolom Kiri: Teks & Aksi -->
-                <div class="lg:col-span-7 space-y-6 text-left">
-                    <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold bg-white/10 backdrop-blur-md text-emerald-300 uppercase tracking-widest border border-white/5">
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
-                        Portal Inklusif Kota Kita
-                    </span>
-                    
-                    <h1 id="hero-heading" class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.15] text-white">
-                        Suarakan Aspirasimu,<br>Tingkatkan Fasilitas Kita.
-                    </h1>
-                    
-                    <p class="text-sm sm:text-base md:text-lg text-indigo-100 leading-relaxed max-w-xl">
-                        Laporkan kerusakan fasilitas publik, masalah kebersihan, atau keluhan pelayanan sosial dengan mudah. Portal ini dioptimalkan dengan aksesibilitas ramah disabilitas demi kesetaraan warga.
-                    </p>
-                    
-                    <div class="flex flex-wrap gap-4 pt-2">
-                        <a href="#feed-aspirasi" class="px-6 py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-lg shadow-emerald-900/10 hover:scale-105 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-indigo-800" aria-label="Lihat Laporan Warga Lain">
-                            Lihat Laporan Warga
-                        </a>
-                        <button onclick="toggleReportModal(true)" class="px-6 py-3.5 border border-white/20 bg-white/5 backdrop-blur-sm text-white font-bold rounded-xl hover:bg-white/10 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-white" aria-label="Tulis Laporan Sekarang">
-                            Laporkan Sekarang
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Kolom Kanan: SVG Ilustrasi Geometris Abstrak Premium (Hanya muncul di lg: desktop) -->
-                <div class="hidden lg:block lg:col-span-5 relative w-full h-full min-h-[300px]">
-                    <svg class="w-full h-full max-h-[350px]" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <!-- Background Glow -->
-                        <circle cx="250" cy="200" r="160" fill="url(#hero-glow)" opacity="0.3"/>
-                        
-                        <!-- Grid Lines -->
-                        <path d="M 50 100 L 450 100 M 50 200 L 450 200 M 50 300 L 450 300 M 150 50 L 150 350 M 250 50 L 250 350 M 350 50 L 350 350" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1.5" />
-                        
-                        <!-- Abstract Cityscape / Platforms -->
-                        <rect x="120" y="240" width="70" height="120" rx="12" fill="url(#grad-blue)" opacity="0.8"/>
-                        <rect x="210" y="160" width="80" height="200" rx="16" fill="url(#grad-purple)" opacity="0.9"/>
-                        <rect x="310" y="210" width="70" height="150" rx="12" fill="url(#grad-teal)" opacity="0.8"/>
-                        
-                        <!-- Floating Glass Circles (Isometric visual representation of data) -->
-                        <g filter="url(#drop-shadow-svg)">
-                            <circle cx="250" cy="120" r="35" fill="white" fill-opacity="0.1" stroke="white" stroke-opacity="0.2" stroke-width="1.5" />
-                            <!-- Megaphone/Voice Icon inside circle -->
-                            <path d="M245 113h-4a2 2 0 00-2 2v10a2 2 0 002 2h4l6 5V108l-6 5zm11 7a5 5 0 000-6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </g>
-
-                        <g filter="url(#drop-shadow-svg)">
-                            <circle cx="140" cy="200" r="28" fill="white" fill-opacity="0.1" stroke="white" stroke-opacity="0.2" stroke-width="1.5" />
-                            <!-- Map Pin Icon -->
-                            <path d="M140 188c-6.6 0-12 5.4-12 12 0 8.4 12 18 12 18s12-9.6 12-18c0-6.6-5.4-12-12-12zm0 15a3 3 0 110-6 3 3 0 010 6z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </g>
-
-                        <g filter="url(#drop-shadow-svg)">
-                            <circle cx="360" cy="170" r="28" fill="white" fill-opacity="0.1" stroke="white" stroke-opacity="0.2" stroke-width="1.5" />
-                            <!-- Checkmark/Thumb Icon -->
-                            <path d="M352 170l5 5 11-10" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </g>
-                        
-                        <!-- Connecting Glowing Nodes -->
-                        <line x1="250" y1="155" x2="250" y2="160" stroke="#a78bfa" stroke-width="2" stroke-dasharray="4 4" />
-                        <line x1="140" y1="228" x2="140" y2="240" stroke="#818cf8" stroke-width="2" stroke-dasharray="4 4" />
-                        <line x1="360" y1="198" x2="360" y2="210" stroke="#34d399" stroke-width="2" stroke-dasharray="4 4" />
-                        
-                        <path d="M 168 200 Q 250 170 332 170" stroke="rgba(255, 255, 255, 0.15)" stroke-width="2" fill="none" stroke-dasharray="5 5" />
-                        
-                        <!-- Definitions -->
-                        <defs>
-                            <radialGradient id="hero-glow" cx="50%" cy="50%" r="50%">
-                                <stop offset="0%" stop-color="#8b5cf6" />
-                                <stop offset="100%" stop-color="#4f46e5" stop-opacity="0" />
-                            </radialGradient>
-                            <linearGradient id="grad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#3b82f6" />
-                                <stop offset="100%" stop-color="#1d4ed8" />
-                            </linearGradient>
-                            <linearGradient id="grad-purple" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#8b5cf6" />
-                                <stop offset="100%" stop-color="#6d28d9" />
-                            </linearGradient>
-                            <linearGradient id="grad-teal" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#10b981" />
-                                <stop offset="100%" stop-color="#047857" />
-                            </linearGradient>
-                            <filter id="drop-shadow-svg" x="0" y="0" width="120%" height="120%">
-                                <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.15"/>
-                            </filter>
-                        </defs>
-                    </svg>
-                </div>
-
-            </div>
-        </section>
+        <!-- Sub-Komponen Hero Banner (Pemuatan via JS) -->
+        <div id="hero-component"></div>
 
         <!-- SECTION 2: FORM PELAPORAN (Kerangka Modal untuk Form Pengaduan) -->
         <section id="form-pelaporan" aria-labelledby="form-heading">
             <!-- Modal Container (Hidden by default, diaktifkan via JS toggleReportModal) -->
-            <div id="modal-pelaporan" class="fixed inset-0 z-50 overflow-y-auto hidden" role="dialog" aria-modal="true" aria-labelledby="form-heading" aria-hidden="true">
+            <div id="modal-pelaporan" class="fixed inset-0 z-50 overflow-y-auto hidden" role="dialog" aria-modal="true"
+                aria-labelledby="form-heading" aria-hidden="true">
                 <!-- Overlay Belakang (Blur & Gelap) -->
-                <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity" onclick="toggleReportModal(false)"></div>
+                <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity"
+                    onclick="toggleReportModal(false)"></div>
 
                 <!-- Konten Box Modal -->
                 <div class="flex min-h-screen items-center justify-center p-4">
-                    <div class="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 transition-all transform scale-100">
-                        
+                    <div
+                        class="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 transition-all transform scale-100">
+
                         <!-- Header Modal -->
-                        <div class="bg-gradient-to-r from-brand-600 to-indigo-600 text-white px-8 py-6 flex items-center justify-between">
-                            <h2 id="form-heading" class="text-xl font-bold tracking-tight">Buat Laporan Aspirasi Baru</h2>
-                            <button onclick="toggleReportModal(false)" 
-                                    class="p-1.5 rounded-xl text-white/80 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white close-icon"
-                                    aria-label="Tutup Formulir Laporan">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                        <div
+                            class="bg-gradient-to-r from-brand-600 to-indigo-600 text-white px-8 py-6 flex items-center justify-between">
+                            <h2 id="form-heading" class="text-xl font-bold tracking-tight">Buat Laporan Aspirasi Baru
+                            </h2>
+                            <button onclick="toggleReportModal(false)"
+                                class="p-1.5 rounded-xl text-white/80 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white close-icon"
+                                aria-label="Tutup Formulir Laporan">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
@@ -227,25 +99,27 @@
 
                         <!-- Form Isi Laporan -->
                         <form id="form-pengaduan" class="p-8 space-y-6">
-                            
+
                             <!-- Input Judul -->
                             <div class="space-y-1.5">
-                                <label for="input-judul" class="block text-sm font-bold text-slate-700">Judul Laporan <span class="text-red-500" aria-hidden="true">*</span></label>
-                                <input type="text" id="input-judul" required 
-                                       placeholder="Contoh: Lampu Jalan Raya Sudirman Mati" 
-                                       class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
-                                       aria-required="true"
-                                       aria-describedby="help-judul">
-                                <p id="help-judul" class="text-xs text-slate-400">Buat judul laporan yang ringkas, jelas, dan menggambarkan masalah inti.</p>
+                                <label for="input-judul" class="block text-sm font-bold text-slate-700">Judul Laporan
+                                    <span class="text-red-500" aria-hidden="true">*</span></label>
+                                <input type="text" id="input-judul" required
+                                    placeholder="Contoh: Lampu Jalan Raya Sudirman Mati"
+                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
+                                    aria-required="true" aria-describedby="help-judul">
+                                <p id="help-judul" class="text-xs text-slate-400">Buat judul laporan yang ringkas,
+                                    jelas, dan menggambarkan masalah inti.</p>
                             </div>
 
                             <!-- Baris Kategori & Lokasi -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <!-- Pilihan Kategori -->
                                 <div class="space-y-1.5">
-                                    <label for="input-kategori" class="block text-sm font-bold text-slate-700">Kategori Aspirasi <span class="text-red-500" aria-hidden="true">*</span></label>
-                                    <select id="input-kategori" required 
-                                            class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all focus:outline-none text-slate-800 font-medium bg-white">
+                                    <label for="input-kategori" class="block text-sm font-bold text-slate-700">Kategori
+                                        Aspirasi <span class="text-red-500" aria-hidden="true">*</span></label>
+                                    <select id="input-kategori" required
+                                        class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all focus:outline-none text-slate-800 font-medium bg-white">
                                         <option value="" disabled selected>Pilih Kategori</option>
                                         <option value="infrastruktur">Infrastruktur & Jalan</option>
                                         <option value="lingkungan">Kebersihan & Lingkungan</option>
@@ -256,35 +130,37 @@
 
                                 <!-- Input Lokasi -->
                                 <div class="space-y-1.5">
-                                    <label for="input-lokasi" class="block text-sm font-bold text-slate-700">Lokasi Kejadian <span class="text-red-500" aria-hidden="true">*</span></label>
-                                    <input type="text" id="input-lokasi" required 
-                                           placeholder="Contoh: Jl. Sudirman KM 4, Jakarta" 
-                                           class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
-                                           aria-required="true">
+                                    <label for="input-lokasi" class="block text-sm font-bold text-slate-700">Lokasi
+                                        Kejadian <span class="text-red-500" aria-hidden="true">*</span></label>
+                                    <input type="text" id="input-lokasi" required
+                                        placeholder="Contoh: Jl. Sudirman KM 4, Jakarta"
+                                        class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
+                                        aria-required="true">
                                 </div>
                             </div>
 
                             <!-- Input Deskripsi Detail -->
                             <div class="space-y-1.5">
-                                <label for="input-deskripsi" class="block text-sm font-bold text-slate-700">Deskripsi Laporan Secara Detail <span class="text-red-500" aria-hidden="true">*</span></label>
-                                <textarea id="input-deskripsi" rows="4" required 
-                                          placeholder="Jelaskan dengan detail apa permasalahannya, dampaknya bagi warga sekitar, dan saran perbaikan yang diharapkan..." 
-                                          class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
-                                          aria-required="true"
-                                          aria-describedby="help-deskripsi"></textarea>
-                                <p id="help-deskripsi" class="text-xs text-slate-400">Sediakan informasi spesifik agar petugas mudah melakukan verifikasi.</p>
+                                <label for="input-deskripsi" class="block text-sm font-bold text-slate-700">Deskripsi
+                                    Laporan Secara Detail <span class="text-red-500" aria-hidden="true">*</span></label>
+                                <textarea id="input-deskripsi" rows="4" required
+                                    placeholder="Jelaskan dengan detail apa permasalahannya, dampaknya bagi warga sekitar, dan saran perbaikan yang diharapkan..."
+                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
+                                    aria-required="true" aria-describedby="help-deskripsi"></textarea>
+                                <p id="help-deskripsi" class="text-xs text-slate-400">Sediakan informasi spesifik agar
+                                    petugas mudah melakukan verifikasi.</p>
                             </div>
 
                             <!-- Footer Form / Submit Buttons -->
                             <div class="pt-6 border-t border-slate-100 flex items-center justify-end gap-3.5">
                                 <button type="button" onclick="toggleReportModal(false)"
-                                        class="px-5 py-3.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-slate-300"
-                                        aria-label="Batalkan Pengisian Laporan">
+                                    class="px-5 py-3.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-slate-300"
+                                    aria-label="Batalkan Pengisian Laporan">
                                     Batal
                                 </button>
                                 <button type="submit"
-                                        class="px-6 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-100 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2"
-                                        aria-label="Kirim Laporan Pengaduan">
+                                    class="px-6 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-100 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2"
+                                    aria-label="Kirim Laporan Pengaduan">
                                     Kirim Laporan
                                 </button>
                             </div>
@@ -294,416 +170,22 @@
             </div>
         </section>
 
-        <!-- SECTION 3: FILTER KATEGORI (Penyaring Laporan Warga) -->
-        <section id="filter-kategori" class="mb-10" aria-labelledby="filter-heading">
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-slate-200 pb-5">
-                <div>
-                    <h2 id="filter-heading" class="text-2xl font-bold tracking-tight text-slate-900">Feed Aspirasi Warga</h2>
-                    <p class="text-sm text-slate-500 mt-1">Dukung pengaduan warga lainnya agar segera mendapatkan respon instansi pemerintah.</p>
-                </div>
-                
-                <!-- Scrollable Container untuk Tombol Filter (Mobile-First scroll horizontal) -->
-                <div class="flex items-center gap-2.5 overflow-x-auto pb-2.5 lg:pb-0 scrollbar-none max-w-full" role="group" aria-label="Saring laporan berdasarkan kategori">
-                    <button class="btn-filter shrink-0 px-4.5 py-2.5 rounded-xl text-sm font-bold bg-brand-600 text-white shadow-md shadow-brand-100 hover:shadow active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600" data-category="semua" aria-pressed="true">
-                        Semua Kategori
-                    </button>
-                    <button class="btn-filter shrink-0 px-4.5 py-2.5 rounded-xl text-sm font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600" data-category="infrastruktur" aria-pressed="false">
-                        Infrastruktur
-                    </button>
-                    <button class="btn-filter shrink-0 px-4.5 py-2.5 rounded-xl text-sm font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600" data-category="lingkungan" aria-pressed="false">
-                        Lingkungan
-                    </button>
-                    <button class="btn-filter shrink-0 px-4.5 py-2.5 rounded-xl text-sm font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600" data-category="fasilitas-publik" aria-pressed="false">
-                        Fasilitas Publik
-                    </button>
-                    <button class="btn-filter shrink-0 px-4.5 py-2.5 rounded-xl text-sm font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600" data-category="sosial" aria-pressed="false">
-                        Layanan Sosial
-                    </button>
-                </div>
-            </div>
-        </section>
+        <!-- Sub-Komponen Filter Kategori (Pemuatan via JS) -->
+        <div id="filter-component"></div>
 
         <!-- SECTION 4: FEED ASPIRASI (Responsive Grid 1, 2, 3 Kolom) -->
-        <section id="feed-aspirasi" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" aria-label="Kumpulan Laporan Warga">
-
-            <!-- KARTU 1: Contoh Laporan Infrastruktur (Status: Proses) -->
-            <article id="laporan-001" data-category="infrastruktur" 
-                     class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-premium hover:shadow-hover-premium hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between" 
-                     aria-labelledby="title-laporan-001">
-                <div>
-                    <!-- Header Kartu: Kategori & Status Badge Kontras Tinggi -->
-                    <div class="flex items-center justify-between mb-5">
-                        <span class="px-3 py-1.5 text-xs font-extrabold rounded-xl uppercase tracking-wider bg-orange-50 text-orange-600 border border-orange-100" aria-label="Kategori: Infrastruktur">
-                            Infrastruktur
-                        </span>
-                        <!-- Status Pengerjaan (🟡 Proses) -->
-                        <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-amber-50 text-amber-700 border border-amber-100">
-                            <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse" aria-hidden="true"></span>
-                            Sedang Diproses
-                        </span>
-                    </div>
-
-                    <!-- Judul Laporan -->
-                    <h3 id="title-laporan-001" class="text-lg font-bold text-slate-800 mb-3 hover:text-brand-600 transition-colors">
-                        <a href="#detail-laporan-001" class="focus:outline-none focus:underline focus:text-brand-600">Lubang Besar di Tengah Jalan Lingkar Barat</a>
-                    </h3>
-
-                    <!-- Deskripsi Singkat Laporan -->
-                    <p class="text-sm text-slate-500 leading-relaxed mb-6 line-clamp-3">
-                        Ada lubang jalan berukuran diameter hampir 1 meter dengan kedalaman 15 cm di Jalan Lingkar Barat KM 2. Hal ini sangat membahayakan pengendara motor, terutama ketika malam hari karena minim penerangan jalan.
-                    </p>
-                </div>
-
-                <!-- Footer Kartu: Informasi Lokasi & Aksi Dukungan -->
-                <div class="pt-5 border-t border-slate-100 flex items-center justify-between mt-auto">
-                    <!-- Lokasi Laporan -->
-                    <span class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        Jakarta Barat
-                    </span>
-
-                    <!-- Aksi Upvote dengan Area Sentuh (Hitbox) Luas -->
-                    <div class="flex items-center">
-                        <button class="btn-upvote inline-flex items-center gap-2 px-4 py-2.5 sm:px-3.5 sm:py-2 bg-slate-50 hover:bg-brand-50 hover:text-brand-600 text-slate-500 font-bold text-xs rounded-xl active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600"
-                                aria-pressed="false"
-                                aria-label="Dukung laporan Lubang Besar ini agar ditindaklanjuti">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-                            </svg>
-                            <span class="upvote-count">142</span> Dukungan
-                        </button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- KARTU 2: Contoh Laporan Fasilitas Publik (Status: Selesai) -->
-            <article id="laporan-002" data-category="fasilitas-publik" 
-                     class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-premium hover:shadow-hover-premium hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between" 
-                     aria-labelledby="title-laporan-002">
-                <div>
-                    <!-- Header Kartu: Kategori & Status Badge -->
-                    <div class="flex items-center justify-between mb-5">
-                        <span class="px-3 py-1.5 text-xs font-extrabold rounded-xl uppercase tracking-wider bg-purple-50 text-purple-600 border border-purple-100" aria-label="Kategori: Fasilitas Publik">
-                            Fasilitas Publik
-                        </span>
-                        <!-- Status Pengerjaan (🟢 Selesai) -->
-                        <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-100">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true"></span>
-                            Selesai Perbaikan
-                        </span>
-                    </div>
-
-                    <!-- Judul Laporan -->
-                    <h3 id="title-laporan-002" class="text-lg font-bold text-slate-800 mb-3 hover:text-brand-600 transition-colors">
-                        <a href="#detail-laporan-002" class="focus:outline-none focus:underline focus:text-brand-600">Halte Bus TransKota Koridor 3 Rusak Parah</a>
-                    </h3>
-
-                    <!-- Deskripsi Singkat Laporan -->
-                    <p class="text-sm text-slate-500 leading-relaxed mb-6 line-clamp-3">
-                        Atap halte bus dekat Taman Kota bocor parah dan kursi tunggu kayunya sudah patah-patah. Mengakibatkan calon penumpang harus berdiri dan kehujanan saat menunggu kedatangan armada bus.
-                    </p>
-                </div>
-
-                <!-- Footer Kartu: Informasi Lokasi & Aksi Dukungan -->
-                <div class="pt-5 border-t border-slate-100 flex items-center justify-between mt-auto">
-                    <!-- Lokasi Laporan -->
-                    <span class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        Bandung Tengah
-                    </span>
-
-                    <!-- Aksi Upvote -->
-                    <div class="flex items-center">
-                        <button class="btn-upvote inline-flex items-center gap-2 px-4 py-2.5 sm:px-3.5 sm:py-2 bg-slate-50 hover:bg-brand-50 hover:text-brand-600 text-slate-500 font-bold text-xs rounded-xl active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600"
-                                aria-pressed="false"
-                                aria-label="Dukung laporan Halte Bus ini agar ditindaklanjuti">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-                            </svg>
-                            <span class="upvote-count">98</span> Dukungan
-                        </button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- KARTU 3: Contoh Laporan Layanan Sosial (Status: Menunggu) -->
-            <article id="laporan-003" data-category="sosial" 
-                     class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-premium hover:shadow-hover-premium hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between" 
-                     aria-labelledby="title-laporan-003">
-                <div>
-                    <!-- Header Kartu: Kategori & Status Badge -->
-                    <div class="flex items-center justify-between mb-5">
-                        <span class="px-3 py-1.5 text-xs font-extrabold rounded-xl uppercase tracking-wider bg-rose-50 text-rose-600 border border-rose-100" aria-label="Kategori: Layanan Sosial">
-                            Layanan Sosial
-                        </span>
-                        <!-- Status Pengerjaan (🔴 Menunggu) -->
-                        <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-red-50 text-red-700 border border-red-100">
-                            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping" aria-hidden="true"></span>
-                            Menunggu Tindakan
-                        </span>
-                    </div>
-
-                    <!-- Judul Laporan -->
-                    <h3 id="title-laporan-003" class="text-lg font-bold text-slate-800 mb-3 hover:text-brand-600 transition-colors">
-                        <a href="#detail-laporan-003" class="focus:outline-none focus:underline focus:text-brand-600">Pencurian Lampu Taman Terbuka Hijau</a>
-                    </h3>
-
-                    <!-- Deskripsi Singkat Laporan -->
-                    <p class="text-sm text-slate-500 leading-relaxed mb-6 line-clamp-3">
-                        Tiga buah lampu hias sorot di area Taman Hijau Utama dicuri semalam. Kejadian ini membuat area pojok taman menjadi gelap gulita saat malam hari dan rawan disalahgunakan.
-                    </p>
-                </div>
-
-                <!-- Footer Kartu: Informasi Lokasi & Aksi Dukungan -->
-                <div class="pt-5 border-t border-slate-100 flex items-center justify-between mt-auto">
-                    <!-- Lokasi Laporan -->
-                    <span class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        Surabaya Timur
-                    </span>
-
-                    <!-- Aksi Upvote -->
-                    <div class="flex items-center">
-                        <button class="btn-upvote inline-flex items-center gap-2 px-4 py-2.5 sm:px-3.5 sm:py-2 bg-slate-50 hover:bg-brand-50 hover:text-brand-600 text-slate-500 font-bold text-xs rounded-xl active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600"
-                                aria-pressed="false"
-                                aria-label="Dukung laporan Pencurian Lampu ini agar ditindaklanjuti">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-                            </svg>
-                            <span class="upvote-count">210</span> Dukungan
-                        </button>
-                    </div>
-                </div>
-            </article>
-
+        <section id="feed-aspirasi" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+            aria-label="Kumpulan Laporan Warga">
+            <!-- Isi laporan diisi secara dinamis melalui main.js -->
         </section>
 
     </main>
 
-    <!-- ==========================================
-         ASIDE: Panel Aksesibilitas Cerdas (Floating Sidebar)
-         ========================================== -->
-    <aside id="panel-aksesibilitas" 
-           class="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white shadow-2xl border-l border-slate-100 flex flex-col justify-between hidden transition-all duration-300"
-           role="dialog" 
-           aria-modal="true"
-           aria-labelledby="accessibility-panel-heading" 
-           aria-hidden="true">
-        
-        <!-- Header Panel Samping -->
-        <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-            <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-brand-100 flex items-center justify-center text-brand-600 font-extrabold" aria-hidden="true">
-                    A
-                </div>
-                <h2 id="accessibility-panel-heading" class="text-lg font-bold text-slate-900 tracking-tight">Aksesibilitas Cerdas</h2>
-            </div>
-            <!-- Tombol Tutup Panel -->
-            <button id="btn-close-panel" 
-                    class="p-1.5 rounded-xl text-slate-400 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-600 close-icon" 
-                    aria-label="Tutup Panel Kontrol Aksesibilitas">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
+    <!-- Sub-Komponen Panel Aksesibilitas (Pemuatan via JS) -->
+    <div id="accessibility-panel-component"></div>
 
-        <!-- Area Kontrol Fitur Aksesibilitas -->
-        <div class="flex-grow overflow-y-auto p-6 space-y-6">
-
-            <!-- KENDALI 1: Profil Cerdas -->
-            <div class="space-y-2.5">
-                <label for="select-profil-cerdas" class="block text-sm font-extrabold text-slate-800">
-                    1. Profil Aksesibilitas Cerdas
-                </label>
-                <p class="text-xs text-slate-500 leading-relaxed">Sesuaikan seluruh elemen website secara otomatis berdasarkan tipe kebutuhan khusus Anda.</p>
-                <select id="select-profil-cerdas" 
-                        class="w-full px-3 py-3 rounded-xl border border-slate-200 text-sm font-bold text-slate-700 bg-white focus:border-brand-600 focus:ring-2 focus:ring-brand-100 focus:outline-none">
-                    <option value="normal">Standar (Tanpa Profil)</option>
-                    <option value="adhd">Ramah ADHD (Meningkatkan Fokus)</option>
-                    <option value="low-vision">Low Vision (Teks Besar & Kontras)</option>
-                    <option value="cognitive">Ramah Disabilitas Kognitif (Jarak Teks)</option>
-                    <option value="motor-navigation">Ramah Disabilitas Motorik (Navigasi Keyboard)</option>
-                </select>
-            </div>
-
-            <!-- KENDALI 2: Ukuran Teks (Text Resizer) -->
-            <div class="space-y-2.5">
-                <span class="block text-sm font-extrabold text-slate-800" id="text-resizer-label">
-                    2. Ukuran Huruf Konten
-                </span>
-                <p class="text-xs text-slate-500 leading-relaxed">Sesuaikan ukuran font konten agar sesuai dengan kenyamanan penglihatan Anda.</p>
-                <div class="flex items-center gap-3" role="group" aria-labelledby="text-resizer-label">
-                    <button id="btn-decrease-text" 
-                            class="flex-1 py-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-600"
-                            aria-label="Perkecil Ukuran Huruf">
-                        A- (Perkecil)
-                    </button>
-                    <button id="btn-increase-text" 
-                            class="flex-1 py-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-600"
-                            aria-label="Perbesar Ukuran Huruf">
-                        A+ (Perbesar)
-                    </button>
-                </div>
-            </div>
-
-            <!-- KENDALI 3: Penyesuaian Konten -->
-            <div class="space-y-2.5">
-                <span class="block text-sm font-extrabold text-slate-800" id="content-adjustment-label">
-                    3. Penyesuaian Konten Visual
-                </span>
-                <p class="text-xs text-slate-500 leading-relaxed">Berikan aksen visual ekstra untuk menavigasi bagian penting di halaman.</p>
-                <div class="space-y-3.5" role="group" aria-labelledby="content-adjustment-label">
-                    <!-- Highlight Links -->
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="chk-highlight-links" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
-                        <span class="text-sm font-bold text-slate-600">Sorot Semua Tautan (Link)</span>
-                    </label>
-                    <!-- Spaced Text -->
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="chk-spaced-text" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
-                        <span class="text-sm font-bold text-slate-600">Perlebar Jarak Teks & Baris</span>
-                    </label>
-                    <!-- Mute Animations -->
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="chk-mute-animations" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
-                        <span class="text-sm font-bold text-slate-600">Redam Animasi / Sembunyikan Ilustrasi</span>
-                    </label>
-                </div>
-            </div>
-
-            <!-- KENDALI 4: Warna Tampilan (Display Color Mode) -->
-            <div class="space-y-2.5">
-                <span class="block text-sm font-extrabold text-slate-800" id="color-adjustment-label">
-                    4. Warna Tampilan (Aksesibilitas Penglihatan)
-                </span>
-                <p class="text-xs text-slate-500 leading-relaxed">Atur kontras warna utama untuk mempermudah keterbacaan (tanpa mode gelap).</p>
-                <div class="grid grid-cols-3 gap-2" role="group" aria-labelledby="color-adjustment-label">
-                    <button id="btn-color-monochrome" 
-                            class="px-2 py-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600"
-                            aria-label="Ubah warna halaman menjadi Hitam Putih (Monokrom)">
-                        Hitam Putih
-                    </button>
-                    <button id="btn-color-highcontrast" 
-                            class="px-2 py-3 bg-black text-yellow-300 border border-yellow-400 rounded-xl text-xs font-bold active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-yellow-300"
-                            aria-label="Ubah warna halaman menjadi Kontras Tinggi">
-                        Kontras Tinggi
-                    </button>
-                    <button id="btn-color-reset" 
-                            class="px-2 py-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600"
-                            aria-label="Reset skema warna tampilan ke bawaan">
-                        Bawaan
-                    </button>
-                </div>
-            </div>
-
-            <!-- KENDALI 5: Alat Bantu Cerdas -->
-            <div class="space-y-2.5">
-                <span class="block text-sm font-extrabold text-slate-800" id="assistive-tools-label">
-                    5. Alat Bantu Navigasi & Membaca
-                </span>
-                <p class="text-xs text-slate-500 leading-relaxed">Aktifkan alat bantu visual pendukung di layar Anda.</p>
-                <div class="space-y-3.5" role="group" aria-labelledby="assistive-tools-label">
-                    <!-- Reading Guide Line -->
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="chk-reading-guide" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
-                        <span class="text-sm font-bold text-slate-600">Garis Bantu Membaca (Kursor)</span>
-                    </label>
-                    <!-- Simple Screen Reader -->
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="chk-text-to-speech" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
-                        <span class="text-sm font-bold text-slate-600">Suarakan Teks Saat Disorot (TTS)</span>
-                    </label>
-                    <!-- Enhanced Keyboard Focus Outline -->
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="chk-enhanced-focus" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
-                        <span class="text-sm font-bold text-slate-600">Pertebal Penunjuk Fokus Keyboard</span>
-                    </label>
-                    <!-- Big Cursor -->
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="chk-big-cursor" class="w-4.5 h-4.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 mt-0.5">
-                        <span class="text-sm font-bold text-slate-600">Kursor Ukuran Besar</span>
-                    </label>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Footer Panel Samping (Reset All Settings) -->
-        <div class="p-6 border-t border-slate-100 bg-slate-50">
-            <button onclick="resetAllAccessibilitySettings()" 
-                    class="w-full py-3.5 bg-red-50 hover:bg-red-100 border border-red-100 text-red-700 font-bold rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
-                    aria-label="Kembalikan semua setelan website ke kondisi bawaan">
-                Mereset Semua Setelan
-            </button>
-        </div>
-
-    </aside>
-
-    <!-- ==========================================
-         FOOTER: Informasi Hak Cipta & Navigasi Sekunder
-         ========================================== -->
-    <footer class="bg-slate-900 text-slate-400 py-16 mt-16 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-10">
-                <!-- Info Kolom 1: Brand Info -->
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center text-white font-extrabold text-xl shadow-md" aria-hidden="true">
-                            A
-                        </div>
-                        <span class="text-xl font-extrabold text-white tracking-tight">Aspirasi<span class="text-brand-500">.Kita</span></span>
-                    </div>
-                    <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
-                        Sebuah platform digital inklusif yang bertujuan menghubungkan warga dengan pemangku kepentingan guna mewujudkan pelayanan publik dan infrastruktur kota yang berkualitas, merata, serta nyaman bagi semua orang.
-                    </p>
-                </div>
-
-                <!-- Info Kolom 2: Navigasi Cepat -->
-                <div>
-                    <h3 class="text-xs font-bold text-white uppercase tracking-widest mb-4">Navigasi Cepat</h3>
-                    <ul class="space-y-3 text-xs font-medium">
-                        <li><a href="#hero-banner" class="hover:text-white hover:underline transition-all">Beranda Utama</a></li>
-                        <li><a href="#feed-aspirasi" class="hover:text-white hover:underline transition-all font-semibold">Feed Pengaduan Warga</a></li>
-                        <li><a href="#filter-kategori" class="hover:text-white hover:underline transition-all">Kategori Aduan</a></li>
-                    </ul>
-                </div>
-
-                <!-- Info Kolom 3: Kontak & Bantuan -->
-                <div class="space-y-4">
-                    <h3 class="text-xs font-bold text-white uppercase tracking-widest mb-1">Layanan Warga Kota</h3>
-                    <p class="text-xs leading-relaxed text-slate-400">Hubungi layanan pengaduan darurat Pemerintah Kota Anda melalui Call Center nasional di bawah ini:</p>
-                    <span class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-slate-800 text-white text-xs font-extrabold font-mono border border-slate-700/50">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
-                        Hubungi Call Center: 112
-                    </span>
-                </div>
-            </div>
-
-            <!-- Bagian Bawah: Hak Cipta -->
-            <div class="pt-8 border-t border-slate-800/80 text-center flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p class="text-xs text-slate-500 font-medium">
-                    &copy; 2026 Aspirasi-Kita. Seluruh hak cipta dilindungi undang-undang.
-                </p>
-                <div class="flex items-center gap-4 text-xs font-medium text-slate-500">
-                    <a href="#kebijakan" class="hover:text-white transition-colors">Kebijakan Privasi</a>
-                    <span>&middot;</span>
-                    <a href="#syarat" class="hover:text-white transition-colors">Syarat Layanan</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Sub-Komponen Footer (Pemuatan via JS) -->
+    <div id="footer-component"></div>
 
     <!-- ==========================================
          SCRIPTS: Logika Aplikasi Utama & Aksesibilitas
@@ -714,4 +196,5 @@
     <script src="assets/js/accessibility.js"></script>
 
 </body>
+
 </html>

@@ -1,0 +1,28 @@
+<!-- SECTION 3: FILTER KATEGORI (Penyaring Laporan Warga) -->
+<section id="filter-kategori" class="mb-10" aria-labelledby="filter-heading">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-slate-200 pb-5">
+        <div>
+            <h2 id="filter-heading" class="text-2xl font-bold tracking-tight text-slate-900">Feed Aspirasi Warga</h2>
+            <p class="text-sm text-slate-500 mt-1">Dukung pengaduan warga lainnya agar segera mendapatkan respon instansi pemerintah.</p>
+        </div>
+        
+        <!-- Container untuk Tombol Filter (Bisa membungkus baris otomatis pada mobile demi kerapian visual) -->
+        <div class="flex flex-wrap items-center gap-2.5 md:gap-3.5 max-w-full" role="group" aria-label="Saring laporan berdasarkan kategori">
+            <button class="btn-filter px-4.5 py-3 text-sm md:text-base font-bold bg-brand-600 text-white shadow-md shadow-brand-100 hover:shadow active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600 rounded-xl" data-category="semua" aria-pressed="true">
+                Semua Kategori
+            </button>
+            <button class="btn-filter px-4.5 py-3 text-sm md:text-base font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600 rounded-xl" data-category="infrastruktur" aria-pressed="false">
+                Infrastruktur
+            </button>
+            <button class="btn-filter px-4.5 py-3 text-sm md:text-base font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600 rounded-xl" data-category="lingkungan" aria-pressed="false">
+                Lingkungan
+            </button>
+            <button class="btn-filter px-4.5 py-3 text-sm md:text-base font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600 rounded-xl" data-category="fasilitas-publik" aria-pressed="false">
+                Fasilitas Publik
+            </button>
+            <button class="btn-filter px-4.5 py-3 text-sm md:text-base font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600 rounded-xl" data-category="sosial" aria-pressed="false">
+                Layanan Sosial
+            </button>
+        </div>
+    </div>
+</section>
