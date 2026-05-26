@@ -60,30 +60,36 @@ const aspirasiData = [
 
 // Inisialisasi awal saat dokumen siap
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('Aspirasi-Kita Core System - Loading components...');
-    
-    // Muat seluruh komponen HTML eksternal secara paralel
-    await Promise.all([
-        loadComponent('header-component', 'assets/components/header.html'),
-        loadComponent('hero-component', 'assets/components/hero.html'),
-        loadComponent('filter-component', 'assets/components/filter.html'),
-        loadComponent('accessibility-panel-component', 'assets/components/accessibility-panel.html'),
-        loadComponent('footer-component', 'assets/components/footer.html')
-    ]);
-    
-    console.log('All components loaded successfully.');
-    
-    // Render feed awal
-    renderFeed(aspirasiData);
-    
-    // Hubungkan fungsi pendukung utama
-    initReportForm();
-    initCategoryFilters();
-    initUpvoteSystem();
-    
-    // Pemicu inisialisasi mesin aksesibilitas setelah elemen-elemen siap di DOM
-    if (typeof window.initAccessibilitySystem === 'function') {
-        window.initAccessibilitySystem();
+    try {
+        console.log('Aspirasi-Kita Core System - Loading components...');
+        
+        // 1. Muat seluruh komponen HTML eksternal secara paralel
+        await Promise.all([
+            loadComponent('header-component', 'assets/components/header.html'),
+            loadComponent('hero-component', 'assets/components/hero.html'),
+            loadComponent('filter-component', 'assets/components/filter.html'),
+            loadComponent('accessibility-panel-component', 'assets/components/accessibility-panel.html'),
+            loadComponent('footer-component', 'assets/components/footer.html')
+        ]);
+        
+        console.log('Semua komponen berhasil dimuat.');
+        
+        // 2. Pasang Event Listener Header & Modal (karena elemen DOM sekarang sudah pasti ada)
+        setupHeaderEvents();
+        setupReportModalEvents();
+        
+        // 3. Inisialisasi Sistem Inti
+        initCategoryFilters();
+        initUpvoteSystem();
+        initReportForm();
+        renderAspirasiList();
+        
+        // 4. Inisialisasi Sistem Aksesibilitas Cerdas (accessibility.js)
+        if (typeof window.initAccessibilitySystem === 'function') {
+            window.initAccessibilitySystem();
+        }
+    } catch (error) {
+        console.error('Error saat inisialisasi aplikasi:', error);
     }
 });
 
@@ -299,11 +305,11 @@ function initCategoryFilters() {
             
             // Perbarui visualisasi tombol aktif
             filterButtons.forEach(btn => {
-                btn.className = "btn-filter px-4.5 py-3 rounded-xl text-sm md:text-base font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600";
+                btn.className = "btn-filter px-4 py-2 text-sm font-medium rounded-lg transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:scale-95 focus:outline-none focus:ring-2 focus:ring-brand-600";
                 btn.setAttribute('aria-pressed', 'false');
             });
             
-            button.className = "btn-filter px-4.5 py-3 rounded-xl text-sm md:text-base font-bold bg-brand-600 text-white shadow-md shadow-brand-100 hover:shadow active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600";
+            button.className = "btn-filter px-4 py-2 text-sm font-medium rounded-lg transition-all bg-brand-600 text-white shadow-md shadow-brand-100 hover:shadow active:scale-95 focus:outline-none focus:ring-2 focus:ring-brand-600";
             button.setAttribute('aria-pressed', 'true');
             
             // Terapkan filter array dan render
@@ -519,4 +525,56 @@ function toggleReportModal(show) {
         const fields = ['input-judul', 'input-kategori', 'input-lokasi', 'input-deskripsi'];
         fields.forEach(id => clearError(id));
     }
+}
+
+// Event listener untuk tombol di header secara dinamis
+function setupHeaderEvents() {
+    // Tombol Aksesibilitas di header sudah ditangani oleh accessibility.js,
+    // Kita tambahkan event listener untuk tombol "Tulis Laporan" di header secara terprogram:
+    const btnTulisLaporanHeader = document.querySelector('button[aria-label="Tulis Laporan Aspirasi Baru"]');
+    if (btnTulisLaporanHeader) {
+        // Hapus inline attribute agar tidak berbenturan
+        btnTulisLaporanHeader.removeAttribute('onclick');
+        btnTulisLaporanHeader.addEventListener('click', () => {
+            toggleReportModal(true);
+        });
+    }
+}
+
+// Event listener untuk tombol penutup di dalam modal pelaporan
+function setupReportModalEvents() {
+    // Tombol Tutup Modal (x)
+    const btnCloseModal = document.querySelector('button[aria-label="Tutup Formulir Laporan"]');
+    if (btnCloseModal) {
+        btnCloseModal.removeAttribute('onclick');
+        btnCloseModal.addEventListener('click', () => {
+            toggleReportModal(false);
+        });
+    }
+    
+    // Tombol Batal di dalam modal
+    const btnCancelModal = document.querySelector('button[aria-label="Batalkan Pengisian Laporan"]');
+    if (btnCancelModal) {
+        btnCancelModal.removeAttribute('onclick');
+        btnCancelModal.addEventListener('click', () => {
+            toggleReportModal(false);
+        });
+    }
+    
+    // Klik di overlay luar modal untuk menutup secara aman
+    const modalOverlay = document.querySelector('#modal-pelaporan > div:first-child');
+    if (modalOverlay) {
+        modalOverlay.removeAttribute('onclick');
+        modalOverlay.addEventListener('click', (e) => {
+            // Pastikan klik terjadi pada overlay luar, bukan box modal
+            if (e.target === modalOverlay) {
+                toggleReportModal(false);
+            }
+        });
+    }
+}
+
+// Wrapper untuk renderFeed (Sesuai penamaan pada rancangan inisialisasi)
+function renderAspirasiList() {
+    renderFeed(aspirasiData);
 }

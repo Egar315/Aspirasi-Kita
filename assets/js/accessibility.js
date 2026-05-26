@@ -9,6 +9,14 @@ let currentTextScale = 1; // Default skala teks (1-5)
 
 // Menghubungkan fungsi inisialisasi awal ke ruang lingkup global agar dapat dipicu pasca pemuatan Fetch komponen.
 window.initAccessibilitySystem = function() {
+    const btnAccessibility = document.getElementById('btn-panel-aksesibilitas');
+    const accessibilityPanel = document.getElementById('panel-aksesibilitas');
+    
+    if (!btnAccessibility || !accessibilityPanel) {
+        console.warn("Elemen panel aksesibilitas tidak ditemukan. Penundaan inisialisasi...");
+        return;
+    }
+    
     console.log('Accessibility Engine initialized post-components load.');
     
     // Inisialisasi awal seluruh fitur aksesibilitas
@@ -394,7 +402,7 @@ function resetAllAccessibilitySettings(resetProfileDropdown = true) {
     }
     
     // Reset Kelas Body
-    document.body.className = '';
+    document.body.className = 'bg-[#fafaff] text-slate-800 min-h-screen flex flex-col font-sans transition-colors duration-300';
     
     // Reset Skala Huruf Dasar
     setTextScale(1);
