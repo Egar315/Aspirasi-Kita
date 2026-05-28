@@ -57,34 +57,27 @@
 
 <body class="bg-[#fafaff] text-slate-800 min-h-screen flex flex-col font-sans transition-colors duration-300">
 
-    <!-- Sub-Komponen Header (Pemuatan via JS) -->
+    <!-- 1. Header Component Placeholder -->
     <div id="header-component"></div>
 
-    <!-- ==========================================
-         MAIN: Container Konten Dinamis Platform
-         ========================================== -->
+    <!-- MAIN CONTAINER -->
     <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10" role="main">
 
-        <!-- Sub-Komponen Hero Banner (Pemuatan via JS) -->
+        <!-- 2. Hero Banner Placeholder -->
         <div id="hero-component"></div>
 
-        <!-- SECTION 2: FORM PELAPORAN (Kerangka Modal untuk Form Pengaduan) -->
+        <!-- 3. Form Pelaporan Modal Container -->
         <section id="form-pelaporan" aria-labelledby="form-heading">
-            <!-- Modal Container (Hidden by default, diaktifkan via JS toggleReportModal) -->
             <div id="modal-pelaporan" class="fixed inset-0 z-50 overflow-y-auto hidden" role="dialog" aria-modal="true"
                 aria-labelledby="form-heading" aria-hidden="true">
-                <!-- Overlay Belakang (Blur & Gelap) -->
                 <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity"
                     onclick="toggleReportModal(false)"></div>
-
-                <!-- Konten Box Modal -->
                 <div class="flex min-h-screen items-center justify-center p-4">
                     <div
                         class="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 transition-all transform scale-100">
-
                         <!-- Header Modal -->
                         <div
-                            class="bg-gradient-to-r from-brand-600 to-indigo-600 text-white px-8 py-6 flex items-center justify-between">
+                            class="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-8 py-6 flex items-center justify-between">
                             <h2 id="form-heading" class="text-xl font-bold tracking-tight">Buat Laporan Aspirasi Baru
                             </h2>
                             <button onclick="toggleReportModal(false)"
@@ -96,30 +89,24 @@
                                 </svg>
                             </button>
                         </div>
-
                         <!-- Form Isi Laporan -->
                         <form id="form-pengaduan" class="p-8 space-y-6">
-
-                            <!-- Input Judul -->
                             <div class="space-y-1.5">
                                 <label for="input-judul" class="block text-sm font-bold text-slate-700">Judul Laporan
                                     <span class="text-red-500" aria-hidden="true">*</span></label>
                                 <input type="text" id="input-judul" required
                                     placeholder="Contoh: Lampu Jalan Raya Sudirman Mati"
-                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
+                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-100 transition-all focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
                                     aria-required="true" aria-describedby="help-judul">
                                 <p id="help-judul" class="text-xs text-slate-400">Buat judul laporan yang ringkas,
                                     jelas, dan menggambarkan masalah inti.</p>
                             </div>
-
-                            <!-- Baris Kategori & Lokasi -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <!-- Pilihan Kategori -->
                                 <div class="space-y-1.5">
                                     <label for="input-kategori" class="block text-sm font-bold text-slate-700">Kategori
                                         Aspirasi <span class="text-red-500" aria-hidden="true">*</span></label>
                                     <select id="input-kategori" required
-                                        class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all focus:outline-none text-slate-800 font-medium bg-white">
+                                        class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-100 transition-all focus:outline-none text-slate-800 font-medium bg-white">
                                         <option value="" disabled selected>Pilih Kategori</option>
                                         <option value="infrastruktur">Infrastruktur & Jalan</option>
                                         <option value="lingkungan">Kebersihan & Lingkungan</option>
@@ -127,42 +114,31 @@
                                         <option value="sosial">Pelayanan Sosial & Keamanan</option>
                                     </select>
                                 </div>
-
-                                <!-- Input Lokasi -->
                                 <div class="space-y-1.5">
                                     <label for="input-lokasi" class="block text-sm font-bold text-slate-700">Lokasi
                                         Kejadian <span class="text-red-500" aria-hidden="true">*</span></label>
                                     <input type="text" id="input-lokasi" required
                                         placeholder="Contoh: Jl. Sudirman KM 4, Jakarta"
-                                        class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
+                                        class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-100 transition-all focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
                                         aria-required="true">
                                 </div>
                             </div>
-
-                            <!-- Input Deskripsi Detail -->
                             <div class="space-y-1.5">
                                 <label for="input-deskripsi" class="block text-sm font-bold text-slate-700">Deskripsi
                                     Laporan Secara Detail <span class="text-red-500" aria-hidden="true">*</span></label>
                                 <textarea id="input-deskripsi" rows="4" required
-                                    placeholder="Jelaskan dengan detail apa permasalahannya, dampaknya bagi warga sekitar, dan saran perbaikan yang diharapkan..."
-                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
+                                    placeholder="Jelaskan dengan detail apa permasalahannya..."
+                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-100 transition-all focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
                                     aria-required="true" aria-describedby="help-deskripsi"></textarea>
                                 <p id="help-deskripsi" class="text-xs text-slate-400">Sediakan informasi spesifik agar
                                     petugas mudah melakukan verifikasi.</p>
                             </div>
-
-                            <!-- Footer Form / Submit Buttons -->
                             <div class="pt-6 border-t border-slate-100 flex items-center justify-end gap-3.5">
                                 <button type="button" onclick="toggleReportModal(false)"
-                                    class="px-5 py-3.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-slate-300"
-                                    aria-label="Batalkan Pengisian Laporan">
-                                    Batal
-                                </button>
+                                    class="px-5 py-3.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-slate-300">Batal</button>
                                 <button type="submit"
-                                    class="px-6 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-100 transition-all focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2"
-                                    aria-label="Kirim Laporan Pengaduan">
-                                    Kirim Laporan
-                                </button>
+                                    class="px-6 py-3.5 bg-violet-600 hover:bg-violet-700 text-white font-bold rounded-xl shadow-lg shadow-violet-100 transition-all focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2">Kirim
+                                    Laporan</button>
                             </div>
                         </form>
                     </div>
@@ -170,31 +146,21 @@
             </div>
         </section>
 
-        <!-- Sub-Komponen Filter Kategori (Pemuatan via JS) -->
+        <!-- 4. Filter Kategori Placeholder -->
         <div id="filter-component"></div>
 
-        <!-- SECTION 4: FEED ASPIRASI (Responsive Grid 1, 2, 3 Kolom) -->
+        <!-- 5. Feed Aspirasi Grid Container -->
         <section id="feed-aspirasi" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-            aria-label="Kumpulan Laporan Warga">
-            <!-- Isi laporan diisi secara dinamis melalui main.js -->
-        </section>
+            aria-label="Kumpulan Laporan Warga"></section>
 
     </main>
 
-    <!-- Sub-Komponen Panel Aksesibilitas (Pemuatan via JS) -->
+    <!-- 6. Accessibility & Footer Placeholders -->
     <div id="accessibility-panel-component"></div>
-
-    <!-- Sub-Komponen Footer (Pemuatan via JS) -->
     <div id="footer-component"></div>
 
-    <!-- ==========================================
-         SCRIPTS: Logika Aplikasi Utama & Aksesibilitas
-         ========================================== -->
-    <!-- Logika Utama -->
     <script src="assets/js/main.js"></script>
-    <!-- Logika Mesin Aksesibilitas -->
     <script src="assets/js/accessibility.js"></script>
-
 </body>
 
 </html>

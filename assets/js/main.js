@@ -65,11 +65,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         // 1. Muat seluruh komponen HTML eksternal secara paralel
         await Promise.all([
-            loadComponent('header-component', 'assets/components/header.html'),
-            loadComponent('hero-component', 'assets/components/hero.html'),
-            loadComponent('filter-component', 'assets/components/filter.html'),
-            loadComponent('accessibility-panel-component', 'assets/components/accessibility-panel.html'),
-            loadComponent('footer-component', 'assets/components/footer.html')
+            loadComponent('#header-component', 'assets/components/header.html'),
+            loadComponent('#hero-component', 'assets/components/hero.html'),
+            loadComponent('#filter-component', 'assets/components/filter.html'),
+            loadComponent('#accessibility-panel-component', 'assets/components/accessibility-panel.html'),
+            loadComponent('#footer-component', 'assets/components/footer.html')
         ]);
         
         console.log('Semua komponen berhasil dimuat.');
@@ -92,13 +92,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error saat inisialisasi aplikasi:', error);
     }
 });
-
+ 
 /**
  * Fungsi Asinkronus untuk Mengambil (Fetch) berkas HTML eksternal 
  * dan memasukkannya ke dalam container jangkar.
  */
-async function loadComponent(elementId, filepath) {
-    const container = document.getElementById(elementId);
+async function loadComponent(selector, filepath) {
+    const container = document.querySelector(selector);
     if (!container) return;
     
     try {
@@ -112,7 +112,7 @@ async function loadComponent(elementId, filepath) {
         console.error(`Eror Modularisasi:`, err);
         container.innerHTML = `
             <div class="p-5 bg-red-50 text-red-700 rounded-2xl border border-red-100 text-sm font-bold">
-                Gagal memuat komponen visual '${elementId}'. Hubungi administrator.
+                Gagal memuat komponen visual '${selector}'. Hubungi administrator.
             </div>
         `;
     }
@@ -493,7 +493,7 @@ function showError(elementId, message) {
     
     errorParagraph.textContent = message;
     inputElement.classList.add('border-red-400', 'focus:ring-red-100');
-    inputElement.classList.remove('border-slate-200', 'focus:border-brand-500', 'focus:ring-brand-100');
+    inputElement.classList.remove('border-slate-200', 'focus:border-brand-500', 'focus:ring-brand-100', 'focus:border-violet-500', 'focus:ring-violet-100');
 }
 
 // Utility: Membersihkan pesan eror jika input valid
@@ -507,7 +507,7 @@ function clearError(elementId) {
     }
     
     inputElement.classList.remove('border-red-400', 'focus:ring-red-100');
-    inputElement.classList.add('border-slate-200', 'focus:border-brand-500', 'focus:ring-brand-100');
+    inputElement.classList.add('border-slate-200', 'focus:border-violet-500', 'focus:ring-violet-100');
 }
 
 // Toggle Submission Modal Visibility
