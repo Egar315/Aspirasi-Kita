@@ -35,26 +35,27 @@
                 class="text-sm font-bold text-slate-500 hover:text-violet-600 transition-colors focus:outline-none focus:ring-2 focus:ring-violet-600 rounded-md px-2.5 py-1 font-semibold">Kategori</a>
         </div>
 
-        <!-- Tombol Aksi Kanan (Identik 100% dengan image_bd6363.png) -->
+        <!-- Tombol Aksi Kanan (Perbaikan Sintaksis & Visibilitas Teks) -->
         <div class="flex items-center gap-3.5">
             <!-- Tombol Pemicu Panel Aksesibilitas Cerdas -->
-            <button id="btn-panel-aksesibilitas"
-                class="flex items-center gap-3 px-5 py-2.5 border border-slate-200 text-slate-700 font-bold text-sm rounded-2xl hover:bg-slate-50 hover:border-violet-400 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2"
-                aria-haspopup="dialog" aria-expanded="false" aria-controls="panel-aksesibilitas"
-                aria-label="Buka Panel Aksesibilitas Cerdas">
-                <!-- Ikon SVG Dua Orang / People Group Sesuai Gambar -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet-600 panel-icon" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            <button id="btn-panel-aksesibilitas" 
+                    class="flex items-center gap-2.5 px-4 py-2.5 border border-slate-200 text-slate-700 font-bold text-sm rounded-2xl hover:bg-slate-50 hover:border-violet-400 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2"
+                    aria-haspopup="dialog"
+                    aria-expanded="false"
+                    aria-controls="panel-aksesibilitas"
+                    aria-label="Buka Panel Aksesibilitas Cerdas">
+                <!-- Ikon SVG Dua Orang -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet-600 panel-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
-                <span class="hidden sm:inline">Aksesibilitas</span>
+                <!-- Teks dipaksa selalu muncul (inline) tanpa hidden -->
+                <span class="inline text-slate-700">Aksesibilitas</span>
             </button>
 
-            <!-- Tombol Shortcut Tulis Aspirasi -->
+            <!-- Tombol Shortcut Tulis Aspirasi (Sintaksis Ditutup Sempurna) -->
             <button onclick="toggleReportModal(true)"
-                class="px-5 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-bold text-sm rounded-2xl shadow-md shadow-violet-100 hover:shadow-lg hover:shadow-violet-200 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2"
-                aria-label="Tulis Laporan Aspirasi Baru">
+                    class="px-5 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-bold text-sm rounded-2xl shadow-md shadow-violet-100 hover:shadow-lg hover:shadow-violet-200 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2"
+                    aria-label="Tulis Laporan Aspirasi Baru">
                 Tulis Laporan
             </button>
         </div>
