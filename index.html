@@ -51,8 +51,104 @@
         }
     </script>
 
-    <!-- Custom CSS Stylesheet for Accessibility Engine -->
+    <!-- Custom CSS Stylesheet -->
     <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- Critical Search Bar Overrides (must load after Tailwind) -->
+    <style>
+        .search-wrapper {
+            max-width: 600px !important;
+            margin: 0 auto 24px auto !important;
+            width: 100% !important;
+        }
+        .search-input-container {
+            position: relative !important;
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+        .search-icon-svg {
+            position: absolute !important;
+            left: 18px !important;
+            width: 18px !important;
+            height: 18px !important;
+            min-width: 18px !important;
+            min-height: 18px !important;
+            max-width: 18px !important;
+            max-height: 18px !important;
+            color: #9ca3af !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+            flex-shrink: 0 !important;
+        }
+        .search-input {
+            width: 100% !important;
+            height: 52px !important;
+            background: white !important;
+            border: 2px solid #e5e7eb !important;
+            border-radius: 50px !important;
+            padding: 14px 48px 14px 50px !important;
+            font-size: 15px !important;
+            font-family: inherit !important;
+            color: #1e1b4b !important;
+            outline: none !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+            box-sizing: border-box !important;
+            display: block !important;
+        }
+        .search-input::placeholder {
+            color: #9ca3af !important;
+            font-size: 14px !important;
+        }
+        .search-input:focus {
+            border-color: #6C3CE1 !important;
+            box-shadow: 0 0 0 4px rgba(108,60,225,0.12) !important;
+        }
+        .search-input-container:focus-within .search-icon-svg {
+            color: #6C3CE1 !important;
+        }
+        .search-clear-btn {
+            position: absolute !important;
+            right: 16px !important;
+            width: 28px !important;
+            height: 28px !important;
+            background: #f3f4f6 !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            color: #6b7280 !important;
+            font-size: 12px !important;
+            align-items: center !important;
+            justify-content: center !important;
+            line-height: 1 !important;
+            flex-shrink: 0 !important;
+        }
+        .search-clear-btn:hover {
+            background: #e5e7eb !important;
+        }
+        .search-no-results {
+            text-align: center !important;
+            padding: 60px 20px !important;
+            width: 100% !important;
+        }
+        .no-results-title {
+            font-size: 18px !important;
+            font-weight: 700 !important;
+            color: #374151 !important;
+            margin-bottom: 8px !important;
+        }
+        .no-results-sub {
+            font-size: 14px !important;
+            color: #9ca3af !important;
+        }
+        @media (max-width: 768px) {
+            .search-wrapper {
+                margin: 0 0 20px 0 !important;
+                max-width: 100% !important;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-[#fafaff] text-slate-800 min-h-screen flex flex-col font-sans transition-colors duration-300">

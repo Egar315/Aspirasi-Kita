@@ -166,7 +166,7 @@ body.accessibility-big-cursor * {
 }
 
 /* ==========================================================================
-   Report Detail Modal — Modal Laporan Detail
+   Report Detail Modal â€” Modal Laporan Detail
    ========================================================================== */
 
 /* Overlay Backdrop */
@@ -479,4 +479,136 @@ body.accessibility-high-contrast .modal-action-btn:hover {
     background: #ffffff !important;
     color: #000000 !important;
 }
+/* ==========================================================================
+   Search Bar — Feed Section
+   ========================================================================== */
 
+.search-wrapper {
+    max-width: 600px !important;
+    margin: 0 auto 24px auto !important;
+    width: 100% !important;
+}
+
+.search-input-container {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.search-icon-svg {
+    position: absolute !important;
+    left: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    color: #9ca3af !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    flex-shrink: 0 !important;
+}
+
+.search-input {
+    width: 100% !important;
+    height: 52px !important;
+    background: white !important;
+    border: 2px solid #e5e7eb !important;
+    border-radius: 50px !important;
+    padding: 14px 48px 14px 50px !important;
+    font-size: 15px !important;
+    font-family: inherit !important;
+    color: #1e1b4b !important;
+    outline: none !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+    box-sizing: border-box !important;
+    display: block !important;
+}
+
+.search-input::placeholder {
+    color: #9ca3af !important;
+    font-size: 14px !important;
+}
+
+.search-input:focus {
+    border-color: #6C3CE1 !important;
+    box-shadow: 0 0 0 4px rgba(108, 60, 225, 0.12) !important;
+}
+
+.search-input-container:focus-within .search-icon-svg {
+    color: #6C3CE1 !important;
+}
+
+.search-clear-btn {
+    position: absolute;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    background: #f3f4f6;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    color: #6b7280;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.search-clear-btn:hover {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.search-no-results {
+    text-align: center;
+    padding: 60px 20px;
+    width: 100%;
+}
+
+.no-results-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.no-results-sub {
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+@media (max-width: 768px) {
+    .search-wrapper {
+        margin: 0 0 20px 0;
+        max-width: 100%;
+    }
+}
+
+/* High Contrast Mode */
+body.accessibility-high-contrast .search-input {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+body.accessibility-high-contrast .search-input:focus {
+    border-color: #ffff00 !important;
+    box-shadow: 0 0 0 3px #ffff00 !important;
+}
+
+body.accessibility-high-contrast .search-icon-svg {
+    color: #ffff00 !important;
+}
+
+body.accessibility-high-contrast .search-clear-btn {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}

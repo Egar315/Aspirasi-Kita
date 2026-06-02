@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // 3. Inisialisasi Sistem Inti
         initCategoryFilters();
+        initSearchFeature();
         initUpvoteSystem();
         initReportForm();
         renderAspirasiList();
@@ -87,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // 4. Inisialisasi Modal Detail Laporan
         initReportDetailModal();
 
-        // 4. Inisialisasi Sistem Aksesibilitas Cerdas (accessibility.js)
+        // 5. Inisialisasi Sistem Aksesibilitas Cerdas (accessibility.js)
         if (typeof window.initAccessibilitySystem === 'function') {
             window.initAccessibilitySystem();
         }
@@ -105,7 +106,9 @@ async function loadComponent(selector, filepath) {
     if (!container) return;
 
     try {
-        const response = await fetch(filepath);
+        // Menambahkan parameter query untuk mencegah browser caching saat development
+        const cacheBusterUrl = `${filepath}?v=${new Date().getTime()}`;
+        const response = await fetch(cacheBusterUrl);
         if (!response.ok) {
             throw new Error(`Gagal mengambil komponen: ${filepath} (${response.status})`);
         }
@@ -143,15 +146,26 @@ function renderFeed(data) {
 
     // Jika tidak ada data yang cocok dengan filter
     if (data.length === 0) {
-        feedContainer.innerHTML = `
-            <div class="col-span-full py-12 text-center bg-white rounded-3xl border border-slate-100 p-8 shadow-premium">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-slate-300 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <h3 class="text-lg font-bold text-slate-700">Tidak Ada Laporan Ditemukan</h3>
-                <p class="text-sm text-slate-400 mt-1">Laporan untuk kategori ini sedang kosong atau belum ditulis warga.</p>
-            </div>
-        `;
+        if (typeof currentSearchQuery !== 'undefined' && currentSearchQuery.trim() !== '') {
+            feedContainer.innerHTML = `
+                <div class="col-span-full">
+                    <div class="search-no-results">
+                        <p class="no-results-title">Laporan tidak ditemukan</p>
+                        <p class="no-results-sub">Coba gunakan kata kunci yang berbeda</p>
+                    </div>
+                </div>
+            `;
+        } else {
+            feedContainer.innerHTML = `
+                <div class="col-span-full py-12 text-center bg-white rounded-3xl border border-slate-100 p-8 shadow-premium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-slate-300 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h3 class="text-lg font-bold text-slate-700">Tidak Ada Laporan Ditemukan</h3>
+                    <p class="text-sm text-slate-400 mt-1">Laporan untuk kategori ini sedang kosong atau belum ditulis warga.</p>
+                </div>
+            `;
+        }
         return;
     }
 
@@ -295,9 +309,34 @@ function escapeHTML(str) {
 }
 
 // ==========================================================================
-// 3. FITUR PENYARING KATEGORI (FILTER SYSTEM)
+// 3. FITUR PENYARING KATEGORI (FILTER SYSTEM) & PENCARIAN REAL-TIME
 // ==========================================================================
 let currentFilter = 'semua';
+let currentSearchQuery = '';
+
+function applyFiltersAndSearch() {
+    let filtered = aspirasiData;
+
+    // 1. Terapkan filter kategori
+    if (currentFilter !== 'semua') {
+        filtered = filtered.filter(item => item.kategori === currentFilter);
+    }
+
+    // 2. Terapkan kata kunci pencarian
+    if (currentSearchQuery.trim() !== '') {
+        const query = currentSearchQuery.toLowerCase().trim();
+        filtered = filtered.filter(item => {
+            const matchTitle = item.judul && item.judul.toLowerCase().includes(query);
+            const matchLocation = item.lokasi && item.lokasi.toLowerCase().includes(query);
+            const matchDescription = item.deskripsi && item.deskripsi.toLowerCase().includes(query);
+            return matchTitle || matchLocation || matchDescription;
+        });
+    }
+
+    // 3. Render feed dengan data hasil penyaringan
+    renderFeed(filtered);
+}
+
 function initCategoryFilters() {
     const filterButtons = document.querySelectorAll('.btn-filter');
 
@@ -321,13 +360,35 @@ function initCategoryFilters() {
     });
 }
 
-function applyCurrentFilter() {
-    if (currentFilter === 'semua') {
-        renderFeed(aspirasiData);
-    } else {
-        const filtered = aspirasiData.filter(item => item.kategori === currentFilter);
-        renderFeed(filtered);
+function initSearchFeature() {
+    const searchInput = document.getElementById('search-laporan');
+    const clearBtn = document.getElementById('search-clear');
+    if (!searchInput) return;
+
+    function updateClearButton() {
+        if (!clearBtn) return;
+        clearBtn.style.display = searchInput.value.trim() !== '' ? 'flex' : 'none';
     }
+
+    searchInput.addEventListener('input', (e) => {
+        currentSearchQuery = e.target.value;
+        updateClearButton();
+        applyFiltersAndSearch();
+    });
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            currentSearchQuery = '';
+            clearBtn.style.display = 'none';
+            searchInput.focus();
+            applyFiltersAndSearch();
+        });
+    }
+}
+
+function applyCurrentFilter() {
+    applyFiltersAndSearch();
 }
 
 // ==========================================================================
@@ -579,8 +640,9 @@ function setupReportModalEvents() {
 
 // Wrapper untuk renderFeed (Sesuai penamaan pada rancangan inisialisasi)
 function renderAspirasiList() {
-    renderFeed(aspirasiData);
+    applyFiltersAndSearch();
 }
+
 
 // ==========================================================================
 // 6. MODAL DETAIL LAPORAN (REPORT DETAIL MODAL)
